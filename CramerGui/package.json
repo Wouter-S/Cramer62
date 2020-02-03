@@ -1,0 +1,48 @@
+{
+  "name": "CramerGui",
+  "version": "0.0.1",
+  "description": "CramerGui",
+  "author": "Wouter Saarloos",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "@aspnet/signalr": "^1.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "7.0.0-beta.55",
+    "axios": "^0.18.0",
+    "babel-helpers": "^6.24.1",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.12",
+    "lodash": "^4.17.15",
+    "onchange": "^5.2.0",
+    "vue": "^2.6.6",
+    "vue-cookies": "^1.5.13"
+  },
+  "scripts": {
+    "onchange:js": "onchange -v \"wwwroot/js/**/*.*\" -- npm run build:js  && -- echo '{{event}} to {{changed}} -w",
+    "start": "SET NODE_ENV=development && run-r onchange:js",
+    "build:js": "webpack",
+    "build": "npm run build:js"
+  },
+  "-vs-binding": {
+    "BeforeBuild": [
+      "build"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "babel-preset-stage-2": "^6.24.1",
+    "css-loader": "^2.1.0",
+    "style-loader": "^0.23.1",
+    "vue-loader": "^15.6.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.6",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3"
+  }
+}

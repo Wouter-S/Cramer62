@@ -1,0 +1,13 @@
+/TheMachine/logs
+/bin
+/obj
+bin
+obj
+.vs
+/TheMachine/node_modules
+/TheMachine/package-lock.json
+/TheMachine/wwwroot/dist/js/bundle.mobile.js
+/TheMachine/wwwroot/dist/js/bundle.touch.js
+/TheMachine/wwwroot/dist/js
+/CramerGui/node_modules
+/CramerGui/wwwroot/lib

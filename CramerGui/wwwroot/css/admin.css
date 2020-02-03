@@ -1,0 +1,39 @@
+﻿.row.header{
+    font-weight:bold;
+}
+.admin-row{
+    /*background-color: #eaeaea;*/
+    /*margin-bottom: 10px;*/
+    /*border-radius: 10px;*/
+    padding: 5px;
+    border-bottom: 1px solid #dadada;
+}
+
+.menu {
+    border-bottom: 2px gray solid;
+    margin-bottom: 20px;
+    /*padding-bottom: 10px;*/
+}
+    .menu a{
+        padding:10px;
+    }
+    .menu a:hover {
+        background-color: #dadada;
+    }
+
+.lightRow {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.lightactions {
+    border-bottom: 1px solid #dadada;
+    
+    padding: 5px;
+}
+/*.lights div {
+    border-right: 1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+    height: 39px;
+    padding: 2px;
+}*/

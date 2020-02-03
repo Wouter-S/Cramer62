@@ -1,0 +1,146 @@
+version: '2'
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+
+services:
+  
+  Mosquitto:
+    ports:
+    - "1883:1883"
+    container_name: Mosquitto
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.2
+    
+  Zigbee2Mqtt:
+    volumes:
+      - /data/zigbee2mqtt_data:/app/data
+    container_name: Zigbee2Mqtt
+    devices:
+    - "/dev/zigbee2mqtt:/dev/zigbee2mqtt"    
+    image: koenkk/zigbee2mqtt:arm64v8
+    restart: unless-stopped
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.3
+
+  InfluxDb:
+    volumes:
+      - /data/influxdb_data:/var/lib/influxdb
+    container_name:InfluxDb
+    ports:
+    - "8086:8086"
+    image: influxdb
+    restart: unless-stopped
+    environment:
+    - TZ=Europe/Amsterdam
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.4
+
+  NodeRed:
+    volumes:
+      - /data/nodered_data:/data
+    container_name:NodeRed
+    ports:
+    - "1880:1880"
+    image: nodered/node-red-docker:rpi   
+    environment:
+    - TZ=Europe/Amsterdam
+    restart: unless-stopped
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.5
+  
+  CramerGui:
+    ports:
+    - "1337:1337"
+    container_name: CramerGui
+    volumes:
+    - /data/cramer_gui_data:/data
+    environment:
+    - TZ=Europe/Amsterdam
+    - Mqtt:IpAddress=172.20.0.2
+    - Mqtt:Port=1883
+    - Influx:BaseUrl=172.20.0.4:8086
+    - Grafana:BaseUrl=192.168.1.5:3000
+    image: woutersnl/cramer_gui:latest
+    restart: unless-stopped
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.6
+
+  SmartMeterToMqtt:
+    container_name: SmartMeterToMqtt
+    environment:
+    - MqttIp=172.20.0.2
+    - ComPort=/dev/smartMeter
+    - MqttPort=1883
+    devices:
+    - "/dev/smartMeter:/dev/smartMeter"
+    image: woutersnl/smartmeter_to_mqtt:latest
+    restart: unless-stopped
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.7
+
+  CramerAlexa:
+    container_name: CramerAlexa
+    environment:
+    - Mqtt:IpAddress=192.168.1.4
+    - Mqtt:Port=1883
+    - Global:IpAddress=192.168.1.4
+    - Global:Port=1338
+    - Global:LightApiBaseUrl=192.168.1.4:1337
+    image: woutersnl/cramer_alexa:latest
+    network_mode: "host"
+    restart: unless-stopped
+  
+  CramerCore:
+    container_name: CramerCore
+    environment:
+    - MqttIp=172.20.0.2
+    - ComPort=/dev/lights
+    - MqttPort=1883
+    - TZ=Europe/Amsterdam
+    devices:
+    - "/dev/lights:/dev/lights"
+    image: woutersnl/cramer_core:latest
+    restart: unless-stopped
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.8
+ 
+  DuckDNS:
+    container_name: DuckDNS
+    environment:
+    - LOG_FILE=false
+    - TOKEN=XXXXXXXXXXXXXXXXXXXXXXXX
+    - SUBDOMAINS=XXXXXXXXXXXXXXXXXXXXXXXX 
+    - TZ=Europe/Amsterdam
+    image: linuxserver/duckdns 
+    restart: unless-stopped
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.9
+        
+  Grafana:
+    image: grafana/grafana:latest
+    container_name: Grafana
+    ports:
+    - "3000:3000"
+    environment:
+    - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+    user: "0"
+    links:
+      - InfluxDb
+    volumes:
+    - /data/grafana_data:/var/lib/grafana  
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.10

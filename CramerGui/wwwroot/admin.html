@@ -1,0 +1,231 @@
+﻿
+
+<?xml version="1.0" encoding="utf-8" ?>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>CramerGui</title>
+    <meta http-equiv="refresh" content="3600" />
+    <!--<link rel="stylesheet" href="/css/bootstrap.min.css" />-->
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/fontawesome.css" />
+</head>
+<body>
+
+    <div class="container" id="app">
+        <!-- Modal Component -->
+
+        <h1>CramerGui admin</h1>
+        <div class="row menu">
+            <a href="javascript:void(0);" v-on:click="switchTab('lights')" class="col-md-4">
+                Lights
+            </a>
+            <a href="javascript:void(0);" v-on:click="switchTab('scenes')" class="col-md-4">
+                Scenes
+            </a>
+            <!--<a href="javascript:void(0);" v-on:click="switchTab('schedules')" class="col-md-4">
+                Schedules
+            </a>-->
+        </div>
+
+        <div v-show="activeTab == 'scenes'">
+            <div class="row header">
+                <div class="col-md-1">Id</div>
+                <!--<div class="col-md-2">Identifier</div>-->
+                <div class="col-md-2">Name</div>
+                <div class="col-md-2">MqttAddress</div>
+
+                <!--<div class="col-md-1">WhenDark</div>
+    <div class="col-md-1">WhenLight</div>
+    <div class="col-md-1">Is scene</div>-->
+                <!--<div class="col-md-1">Delete</div>-->
+            </div>
+
+            <div class="row admin-row" v-for="scene in scenes">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-1 text-center">
+                            {{scene.sceneId}}
+                        </div>
+                        <!--<div class="col-md-2">
+        <input class="form-control" type="text" step="1" v-model="scene.identifier" />
+    </div>-->
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" v-model="scene.friendlyName" />
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" type="text" v-model="scene.mqttAddress" />
+                        </div>
+                        <!--<div class="col-md-1 text-center">
+        <input type="checkbox" v-model="scene.whenDark" />
+    </div>
+    <div class="col-md-1 text-center">
+        <input type="checkbox" v-model="scene.whenLight" />
+    </div>
+    <div class="col-md-1 text-center">
+        <input type="checkbox" v-model="scene.isScene" />
+    </div>-->
+                        <div class="col-md-1 text-center">
+
+                            <a href="javascript:void(0)" v-on:click="DeleteScene(scene)">
+                                <span class="fa fa-trash-alt"></span>
+                            </a>
+                        </div>
+                        <!--<div class="col-md-1">
+        <a href="javascript:;" v-on:click="activeScene = scene" v-b-modal.modal1="'test'">Actions</a>
+    </div>-->
+                    </div>
+
+                    <div class="row">
+
+
+                    </div>
+                </div>
+
+            </div>
+            <input type="button" v-on:click="AddScene()" value="Add scene" />
+            <input type="button" v-on:click="SaveScenes()" value="Save" />
+        </div>
+
+        <div v-show="activeTab == 'lights'">
+            <div class="row header">
+                <div class="col-md-1">Id</div>
+                <div class="col-md-2">Name</div>
+                <div class="col-md-2">FriendlyName</div>
+                <div class="col-md-2">Room</div>
+
+                <div class="col-md-5">MqttAddress</div>
+                <!--<div class="col-md-2">Address on</div>-->
+                <!--<div class="col-md-2">Address off</div>-->
+            </div>
+
+            <div class=" row admin-row" v-for="light in lights">
+                <div class="lightRow col-md-1">
+                    {{light.lightId}}
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control" type="text" v-model="light.name" />
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control" type="text" v-model="light.friendlyName" />
+                </div>
+                <div class="col-md-2">
+
+
+                    <select class="form-control" v-model="light.roomId">
+                        <option></option>
+                        <option v-for="room in rooms" :selected="(room.roomId == light.roomId)" :value="room.roomId">
+                            {{room.name}}
+                        </option>
+                    </select>
+
+                </div>
+                <!--<div class="col-md-1 text-center">
+        <input type="checkbox" v-model="light.isWireless" />
+    </div>
+    <div class="col-md-2">
+        <input class="form-control" type="text" v-model="light.addressOn" />
+    </div>
+    <div class="col-md-2">
+        <input class="form-control" type="text" v-model="light.addressOff" />
+    </div>-->
+                <div class="col-md-5">
+                    <input class="form-control" type="text" v-model="light.mqttAddress" />
+                </div>
+            </div>
+            <input type="button" v-on:click="SaveLights()" value="Save" />
+        </div>
+
+        <div v-show="activeTab == 'schedules'">
+            <div class="row header">
+                <div class="col-md-2">crontab</div>
+                <div class="col-md-2">Name</div>
+                <div class="col-md-2">Scene</div>
+                <div class="col-md-1">atSunRise</div>
+                <div class="col-md-1">atSunDown</div>
+            </div>
+
+            <div class="row admin-row" v-for="schedule in schedules">
+
+                <div class="col-md-2 "><input class="form-control" type="text" step="1" v-model="schedule.crontab" /></div>
+                <div class="col-md-2"><input class="form-control" type="text" step="1" v-model="schedule.name" /></div>
+                <div class="col-md-2">
+
+                    <select class="form-control" v-model="schedule.unitId">
+                        <option v-for="scene in scenes" :selected="scene.sceneId == schedule.unitId" :value="scene.sceneId">
+                            {{scene.friendlyName}}
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-md-1"><input type="checkbox" v-model="schedule.atSunrise" /></div>
+                <div class="col-md-1"><input type="checkbox" v-model="schedule.atSundown" /></div>
+            </div>
+
+            <input type="button" v-on:click="AddSchedule()" value="Add new" />
+            <input type="button" v-on:click="SaveSchedules()" value="Save" />
+
+        </div>
+
+        <b-modal v-if="activeScene != null" size="xl" id="test" title="BootstrapVue">
+
+            <div class="col-md-11 col-md-offset-1 row lightactions font-weight-bold">
+                <div class="col-md-2 ">
+                    Light
+                </div>
+                <div class="col-md-2 ">
+                    Mode
+                </div>
+                <div class="col-md-2 ">
+                    Only when on
+                </div>
+                <div class="col-md-2 ">
+                    Clicktype
+                </div>
+                <div class="col-md-2 ">
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1  row lightactions"
+                 v-show="activeScene.sceneId != 0 && action.lightId != null"
+                 v-for="action in activeScene.switchActions">
+                <div class="col-md-2">
+                    <select class="form-control" v-model="action.lightId">
+                        <option v-for="light in lights" :selected="action.lightId == light.lightId" :value="light.lightId">
+                            {{light.name}}
+                        </option>
+                        <option style="color:red;" value="99999">KillEmAll</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control" type="number" step="1" v-model="action.defaultAction" />
+                </div>
+                <div class="col-md-2 text-right">
+                    <input class="form-check-input" type="checkbox" v-model="action.onlyWhenOn" />
+                </div>
+                <div class="col-md-2 text-right">
+                    <select class="form-control" v-model="action.clickType">
+                        <option v-for="clickType in clickTypes" :selected="action.clickType == clickType.id" :value="clickType.id">
+                            {{clickType.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-2 text-center">
+                    
+                    <a href="javascript:void(0)" v-on:click="DeleteSwitchAction(activeScene, action)">
+                        <i class="fa fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <input type="button" v-on:click="AddAction()" value="Add action" />
+            </div>
+
+        </b-modal>
+
+
+    </div>
+    <script src="/dist/js/bundle.admin.js">
+    </script>
+</body>
+</html>

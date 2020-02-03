@@ -1,0 +1,137 @@
+﻿.lightButtonWrap {
+    border: 1px solid #939393;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.lightButtonWrapper {
+    padding: 2px;
+}
+
+.lightSwitch {
+    height: 40px;
+    width: 40px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    float: right;
+    background-position: center;
+}
+
+.lightButton {
+    padding-top: 10px;
+}
+
+.lightButton.killEmAll {
+    text-align: center;
+    padding: 5px;
+    color: red;
+}
+
+body {
+    font-size: 14px;
+}
+
+.mainContent {
+    margin-top: 10px;
+    margin-bottom: 80px;
+}
+
+.footerButtons {
+    padding: 20 0 20 0;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid white;
+    width: 100%;
+    background-color: #363636;
+    color: white;
+}
+
+.spacer {
+    clear: both;
+}
+
+.powerReadingCurrent {
+    width: 100%;
+    border: 1px solid;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.sceneSwitch {
+    border: 1px solid;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    height: 80px;
+    padding-top: 31px;
+}
+
+.sceneSwitchWrapper {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+}
+
+.sceneSwitchIcon {
+    position: absolute;
+    float: left;
+    display: block;
+    top: 55px;
+    left: 145px;
+}
+
+.currentUsage {
+    width: 100%;
+    border: 1px solid;
+    font-size: x-large;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: #888888;
+    margin-bottom: 10px;
+}
+#powerConsumption{
+    display:none;
+}
+
+.on .off {
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+.on {
+    background-image: url(/images/light-on.png);
+}
+
+.off {
+    background-image: url("/images/light-off.png");
+}
+
+body.night {
+    color: #d8d8d8;
+    background-color: #363636;
+}
+
+    body.night .off {
+        background-image: url(/images/light-off-white.png);
+    }
+
+    body.night .on {
+        background-image: url(/images/light-on-white.png);
+    }
+
+    body.night .house div {
+        background-color: #5c5c5c;
+    }
+
+    body.night .roomLayout {
+        border-color: #888888;
+    }
+input[type=range] {
+    width: 100%; /* Specific width is required for Firefox. */
+}

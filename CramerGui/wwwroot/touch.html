@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>CramerGui</title>
+    <meta http-equiv="refresh" content="3600" />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <link rel="stylesheet" href="/css/fontawesome.css" />
+    <link rel="stylesheet" href="/css/touch.css" />
+</head>
+
+<body class="night">
+    <div class="container" id="app" v-on:click="clicked()">
+
+        <div class="status" v-bind:class="{
+             connected: (connection.state == 1),
+             disconnected: (connection.state == 0)
+             }">
+        </div>
+        <div class="row" v-show="!showScreensaver">
+            <div class="col-sm-2">
+                <Scenes></Scenes>
+            </div>
+            <div class="mainContent col-sm-8 col-md-8">
+                <div class="houseTab" v-show="activeTab == 'house'">
+
+                    <House></House>
+                    <div style="position: fixed; top: 220px" class="graph">
+                        <img :src="graphUrls.Last7Days" width="280" height="250" frameborder="0" />
+                    </div>
+                </div>
+
+                <div class="powerConsumptionOverview" v-show="activeTab == 'power'">
+                    <div class="graph">
+                        <img :src="graphUrls.Last30Days" width="100%" height="250" frameborder="0" />
+                    </div>
+                    <Graphs></Graphs>
+                </div>
+
+                <div class="graph" v-show="activeTab == 'power-current'">
+                    <img :src="graphUrls.Last24Hrs" width="100%" height="400" frameborder="0" />
+                </div>
+
+                <div class="graph" v-show="activeTab == 'temperature'">
+                    <img :src="graphUrls.Temperature" width="100%" height="400" frameborder="0" />
+                </div>
+                <div class="" v-show="activeTab == 'lightLogs'">
+                    <Lightlog></Lightlog>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="block" id="clock" v-on:click="showTab('house')">
+                    <clock></clock>
+                </div>
+                <div class="block" id="weatherBlock" v-on:click="showTab('house')">
+                    <Weather></Weather>
+                </div>
+                <currentusage></currentusage>
+                <div class="block" id="lightlogBlock" v-on:click="showTab('lightLogs')">
+                </div>
+            </div>
+
+
+        </div>
+        <div class="screensaver" v-show="showScreensaver">
+            <img :src="graphUrls.ScreenSaverPower" style="margin-top: 20px;margin-bottom: 20px;"
+                 frameborder="0" />
+
+            <img :src="graphUrls.ScreenSaverTemp"
+                 frameborder="0" />
+            <div class="todaysDate">
+            </div>
+        </div>
+    </div>
+
+    <script src="/dist/js/bundle.touch.js">
+    </script>
+</body>
+</html>

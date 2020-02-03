@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>CramerGui</title>
+    <meta http-equiv="refresh" content="3600" />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="icon" sizes="128x128" href="icon_128.png" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <link rel="stylesheet" href="/css/fontawesome.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/mobile.css" />
+
+    <link rel="stylesheet" href="/css/night.css" />
+</head>
+
+<body class="ui-mobile-viewport ui-overlay-a mobileview night">
+    <div id="app">
+        <div class="status "></div>
+        <div class="mainContent container" data-enhance="false">
+            <div class="col-12" v-show="activeTab == 'house'">
+                <House></House>
+            </div>
+            <div class="col-12" v-show="activeTab == 'scenes'">
+                <Scenes></Scenes>
+            </div>
+            <div class="col-12" v-show="activeTab == 'power'">
+                <!--<div class="powerReadingCurrent">
+        {{readings.powerCurrent}}w
+    </div>
+    <div>
+        <iframe src="http://192.168.1.5:3000/d-solo/mJttxVLmk/stroomverbruil?panelId=7&orgId=1&tab=general" width="300" height="250" frameborder="0"></iframe>
+    </div>-->
+
+                <currentusage></currentusage>
+
+            </div>
+        </div>
+
+        <div class="footerButtons row">
+            <div class="footerButton col-3 text-center" v-on:click="showTab('house')">
+                <i class="far fa-lightbulb"></i>
+            </div>
+            <div class="footerButton col-3 text-center" v-on:click="showTab('scenes')">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="footerButton col-3 text-center" v-on:click="showTab('power')">
+                <i class="far fa-chart-bar"></i>
+            </div>
+            <div class="footerButton col-3 text-center" v-on:click="killLights()">
+                <i style="color:red" class="far fa-lightbulb"></i><i v-show="killingLights" class="fas fa-spinner fa-spin"></i>
+            </div>
+        </div>
+    </div>
+    <script src="/dist/js/bundle.mobile.js">
+    </script>
+</body>
+</html>

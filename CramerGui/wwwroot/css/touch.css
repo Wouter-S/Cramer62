@@ -1,0 +1,381 @@
+﻿body {
+    background-color: #efefef;
+}
+
+html {
+    font-size: 12px;
+    font-family: Verdana;
+}
+.status {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 0;
+    top: 0;
+}
+
+.status.connected {
+    background-color: green;
+}
+.status.disconnected{
+    background-color:red;
+}
+
+.mainContent {
+    margin-top: 10px;
+}
+
+.block {
+    width: 75px;
+    height: 75px;
+    float: right;
+    position: initial;
+    border: 1px solid;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-color: #9b9999;
+}
+
+.blockList > .block:first-child {
+    margin-top: 0px !important;
+}
+
+#clock {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 13px;
+}
+
+/* Weather block*/
+#weatherBlock {
+    text-align: center;
+    padding-top: 15px;
+}
+
+#weatherWrapper {
+    height: 29px;
+    position: relative;
+    border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 90px;*/
+}
+
+.currentUsage {
+    font-size: 20px;
+    text-align: center;
+    padding-top: 25px;
+}
+
+
+/* HOUSE */
+
+.roomLayout {
+    position: absolute;
+    /*border-radius: 3px;*/
+    background-color: #dadada;
+    border: 1px solid white;
+}
+
+#living1.on, #living1.off {
+    background-image: none;
+}
+
+.indicator {
+    height: 25px;
+    width: 25px;
+    border: 1px solid darkgray;
+    display: block;
+    position: absolute;
+    border-radius: 5px;
+    background-size: 25px;
+}
+
+.room3.on, .room3.off {
+    background-position-x: 15px;
+    background-position-y: 2px;
+}
+
+.room4.on, .room4.off {
+    background-position-x: 10px;
+    background-position-y: 40px;
+}
+
+.room5.on, .room5.off {
+    background-position-x: 20px;
+    background-position-y: 10px;
+}
+
+.room6.on, .room6.off {
+    /*display:none;*/
+    background-image: none;
+}
+
+.room7.on, .room7.off {
+    background-position-x: 35px;
+    background-position-y: 45px;
+}
+
+
+.houseWrapper {
+    height: 175px;
+    width: 252px;
+    /*border: 1px solid;*/
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+#kitchen {
+    height: 50px;
+    width: 107px;
+    top: 125px;
+    border-bottom: 1px solid #9b9999;
+    border-left: 1px solid #9b9999;
+    border-radius: 0px 0px 0px 3px;
+}
+
+    #kitchen .indicator {
+        left: 40px;
+        top: 12px;
+    }
+
+#hallway {
+    height: 25px;
+    width: 107px;
+    top: 100px;
+    border-width: 0 1 0 1;
+    border-left: 1px solid #9b9999;
+}
+
+    #hallway .indicator {
+        /*left: 75px;*/
+        lefT: 40px
+        /*top: 15px;*/
+    }
+
+#bedroom {
+    height: 100px;
+    width: 107px;
+    border-left: 1px solid #9b9999;
+    border-top: 1px solid #9b9999;
+    border-radius: 3px 0px 0px 0px;
+}
+
+    #bedroom .indicator {
+        left: 40px;
+        top: 40px;
+    }
+
+#bathRoom {
+    height: 50px;
+    width: 72px;
+    left: 122px;
+    z-index: 5;
+    border-top: 1px solid #9b9999;
+    border-width: 1 1 0 0;
+}
+
+    #bathroom .indicator {
+        left: 25px;
+        top: 10px;
+    }
+
+#toilet {
+    width: 72px;
+    height: 25px;
+    top: 50px;
+    left: 122px;
+    z-index: 3;
+    border-width: 1 1 1 0;
+}
+
+    #toilet .indicator {
+        /*left: 50px;*/
+        /*top: 15px;*/
+        display: none;
+    }
+
+#hallWay2 {
+    width: 48px;
+    height: 100px;
+    top: 75px;
+    left: 122px;
+    border-bottom: 1px solid #9b9999;
+    border-width: 0 1 1 0;
+}
+
+    #hallWay2 .indicator {
+        left: 11px;
+        top: 40px;
+    }
+
+#living1 {
+    width: 170px;
+    height: 175px;
+    /* top: 150px; */
+    left: 124px;
+    border-left: 0px;
+    border-top: 1px solid #9b9999;
+    border-right: 1px solid #9b9999;
+    border-bottom: 1px solid #9b9999;
+    border-radius: 3px;
+    z-index: 0;
+}
+
+    #living1 .indicator {
+        left: 90px;
+        top: 85px;
+    }
+
+.on, .off {
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+.on {
+    background-image: url(/images/light-on.png);
+}
+
+.off {
+    background-image: url("/images/light-off.png");
+}
+
+.lightSwitch {
+    height: 50px;
+    width: 50px;
+    background-size: 20px !important;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+    .lightSwitch.dimmable {
+        height: 25px;
+    }
+
+.lightButton {
+    margin-top: 15px;
+}
+
+/**POWER CONS*/
+#powerConsumptionWrapper {
+    text-align: right;
+    position: relative;
+    padding-top: 10px;
+    padding-right: 3px;
+    font-size: 12px;
+    vertical-align: top;
+}
+
+.lightButtonWrapper {
+    width: 100%;
+    height: 60px;
+    margin-right: 3px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border: 1px solid #9b9999;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+
+    .lightButtonWrapper.dimmable {
+        padding-top: 20px;
+        height: 80px;
+    }
+
+    .lightButtonWrapper:first-child {
+        margin-top: 0px;
+    }
+
+.lightButtonName {
+    margin-top: 5px;
+    display: block;
+    margin-left: 10px;
+}
+
+.graph {
+    border: 1px solid#9b9999;
+    border-radius: 3px;
+}
+
+.tableCell {
+    /*width: 8%;*/
+    /*float: left;*/
+    border-right: 1px solid gray;
+    text-align: right;
+    padding-right: 4px;
+    margin-bottom: 25px;
+}
+
+body.night {
+    color: #d8d8d8;
+    background-color: #363636;
+}
+
+body.night .off {
+    background-image: url(/images/light-off-white.png);
+}
+
+body.night .on {
+    background-image: url(/images/light-on-white.png);
+}
+
+body.night .house div {
+    background-color: #5c5c5c;
+}
+
+body.night .roomLayout {
+    border-color: #888888;
+}
+
+#lightlogBlock {
+    background-image: url(/images/history.png);
+    background-size: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body.night #lightlogBlock {
+    background-image: url(/images/history-white.png);
+}
+
+.logIcon {
+    display: block;
+    height: 16px;
+    width: 16px;
+    float: left;
+}
+
+.sceneSwitch {
+    border: 1px solid;
+    border-radius: 5px;
+    margin-top: 10px;
+    height: 80px;
+    padding-top: 31px;
+}
+
+.sceneSwitchWrapper {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+}
+
+.container {
+    width: 920px !important;
+    max-width: 920px !important;
+}
+
+.lightslider{
+    width: 100%;
+}
+
+.showMobile{
+    display:none;
+}
+
+#powerConsumptionTable {
+    width: 100%;
+    font-size: 13px;
+}
