@@ -1,15 +1,13 @@
-﻿using System;
+﻿using CramerGui.Repositories;
+using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mqtt;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using CramerAlexa.Repositories;
 
-namespace CramerAlexa.Services
+namespace CramerGui.Services
 {
     public class SceneService : ISceneService
     {
@@ -20,7 +18,8 @@ namespace CramerAlexa.Services
         private IMqttClient client;
         private Mqtt _mqttSettings;
 
-        public SceneService(IOptions<Mqtt> options, IRoomService roomService, ILightService lightService, ISceneRepository switchRepo)
+        public SceneService(IOptions<Mqtt> options, IRoomService roomService,
+            ILightService lightService, ISceneRepository switchRepo)
         {
             _roomService = roomService;
             _lightService = lightService;
@@ -45,6 +44,7 @@ namespace CramerAlexa.Services
         {
             return _sceneRepo.GetAll();
         }
+
         public void Update(List<Scene> scenes)
         {
             List<Scene> dbScenes = _sceneRepo.GetAll();

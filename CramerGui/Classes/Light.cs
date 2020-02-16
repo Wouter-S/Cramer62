@@ -1,4 +1,4 @@
-namespace CramerAlexa
+namespace CramerGui
 {
     using Newtonsoft.Json;
     using System;

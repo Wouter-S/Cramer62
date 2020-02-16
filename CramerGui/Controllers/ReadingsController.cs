@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using CramerAlexa.Services;
+﻿using CramerGui.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using CramerAlexa.Services.Interfaces;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CramerAlexa
+namespace CramerGui
 {
     public static class ExtensionMethods
     {

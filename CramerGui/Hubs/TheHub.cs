@@ -1,14 +1,8 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CramerGui.Services;
+using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
-using CramerAlexa;
-using CramerAlexa.Services;
 
-namespace CramerAlexa.Hubs
+namespace CramerGui.Hubs
 {
 
     public class TheHub : Hub

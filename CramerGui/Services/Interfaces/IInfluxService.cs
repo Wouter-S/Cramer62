@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CramerAlexa.Services.Interfaces
+namespace CramerGui.Services.Interfaces
 {
     public interface IInfluxService
     {

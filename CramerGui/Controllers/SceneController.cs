@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CramerAlexa.Services;
+﻿using CramerGui.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace CramerAlexa.Controllers
+namespace CramerGui.Controllers
 {
     public class SceneController : Controller
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace CramerAlexa.Repositories
+namespace CramerGui.Repositories
 {
     public interface ISceneRepository
     {

@@ -1,14 +1,12 @@
-﻿using CramerAlexa;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
 
-namespace CramerAlexa.Repositories
+namespace CramerGui.Repositories
 {
     public class LightRepository : ILightRepository
     {

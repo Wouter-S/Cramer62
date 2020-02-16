@@ -21,7 +21,7 @@
         "Mqtt:Port": "1883",
         "Influx:BaseUrl": "192.168.1.4:8086",
         "Mqtt:IpAddress": "192.168.1.4",
-        "Grafana:BaseUrl": "192.168.1.5:3000",
+        "Grafana:BaseUrl": "192.168.1.4:3000",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:60348"

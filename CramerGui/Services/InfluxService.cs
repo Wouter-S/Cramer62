@@ -1,14 +1,11 @@
-﻿using Microsoft.Extensions.Options;
+﻿using CramerGui.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using CramerAlexa.Services.Interfaces;
 
-namespace CramerAlexa.Services
+namespace CramerGui.Services
 {
     public class InfluxService : IInfluxService
     {

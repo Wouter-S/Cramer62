@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CramerAlexa.Repositories
+namespace CramerGui.Repositories
 {
     public interface IRoomRepository
     {

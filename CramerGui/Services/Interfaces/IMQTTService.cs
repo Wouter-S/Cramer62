@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CramerAlexa.Services
+namespace CramerGui.Services
 {
     public interface IMqttService
     {

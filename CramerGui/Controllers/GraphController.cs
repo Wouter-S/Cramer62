@@ -1,24 +1,16 @@
-﻿using CramerAlexa.Repositories;
+﻿using CramerGui.Classes;
+using CramerGui.Services;
+using CramerGui.Services.Interfaces;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using CramerAlexa.Services;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using CramerAlexa.Services.Interfaces;
-using Microsoft.Extensions.Options;
-using System.IO;
-using System.Reflection;
-using Microsoft.AspNetCore.Hosting;
-using CramerAlexa.Classes;
 
-namespace CramerAlexa.Controllers
+namespace CramerGui.Controllers
 {
     public class Reading
     {
@@ -42,8 +34,6 @@ namespace CramerAlexa.Controllers
         private GrafanaSettings _grafanaUrls;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-
-
         public GraphController(IRoomService roomService, IInfluxService influxService, IOptions<GrafanaSettings> grafanaUrls, IHostingEnvironment hostingEnvironment)
         {
             _roomService = roomService;
@@ -58,7 +48,7 @@ namespace CramerAlexa.Controllers
         {
             //Dictionary<int, List<Reading>> dict = new Dictionary<int, List<Reading>>();
             List<GraphRow> rows = new List<GraphRow>();
-            
+
             HttpClient client = new HttpClient();
             for (int j = DateTime.Now.Year; j >= 2017; j--)
             {
@@ -85,7 +75,7 @@ namespace CramerAlexa.Controllers
                 rows.Add(graphRow);
             }
             var content = JsonConvert.SerializeObject(rows, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-            
+
             return Content(content, "application/json");
         }
 
@@ -93,28 +83,36 @@ namespace CramerAlexa.Controllers
         public ActionResult GetGraphUrls()
         {
             string baseUrl = _grafanaUrls.BaseUrl;
-            _grafanaUrls.Last24Hrs = string.Format(_grafanaUrls.Last24Hrs, baseUrl); 
-            _grafanaUrls.Last7Days = string.Format(_grafanaUrls.Last7Days, baseUrl); 
-            _grafanaUrls.Last30Days = string.Format(_grafanaUrls.Last30Days, baseUrl); 
-            _grafanaUrls.Temperature = string.Format(_grafanaUrls.Temperature, baseUrl); 
+            _grafanaUrls.Last24Hrs = string.Format(_grafanaUrls.Last24Hrs, baseUrl);
+            _grafanaUrls.Last7Days = string.Format(_grafanaUrls.Last7Days, baseUrl);
+            _grafanaUrls.Last30Days = string.Format(_grafanaUrls.Last30Days, baseUrl);
+            _grafanaUrls.Temperature = string.Format(_grafanaUrls.Temperature, baseUrl);
             _grafanaUrls.ScreenSaverPower = string.Format(_grafanaUrls.ScreenSaverPower, baseUrl);
-            _grafanaUrls.ScreenSaverTemp= string.Format(_grafanaUrls.ScreenSaverTemp, baseUrl);
+            _grafanaUrls.ScreenSaverTemp = string.Format(_grafanaUrls.ScreenSaverTemp, baseUrl);
 
             return Json(_grafanaUrls);
-
         }
 
+        [ResponseCache(Duration = 60)]
         [Route("/graph/image/{type}")]
         public ActionResult Image(string type, string theme)
         {
             string fileName = $"/images/graphs/{type}.jpg";
             string path = $"{_hostingEnvironment.WebRootPath}/{fileName}";
+
+            //dont always want to download the file, randomize
+            Random r = new Random();
+            if (System.IO.File.Exists(path) && r.Next(0, 2) == 1)
+            {
+                return File($"~/{fileName}", "image/jpg");
+            }
+
             using (WebClient client = new WebClient())
             {
                 string property = (string)GetPropValue(_grafanaUrls, type);
                 property = string.Format(property, _grafanaUrls.BaseUrl);
 
-                client.DownloadFile(new Uri(property) + "&theme="+theme, path);
+                client.DownloadFile(new Uri(property) + "&theme=" + theme, path);
                 return File($"~/{fileName}", "image/jpg");
             }
         }

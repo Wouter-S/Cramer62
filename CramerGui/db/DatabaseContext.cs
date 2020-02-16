@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CramerAlexa;
 
-namespace CramerAlexa
+namespace CramerGui
 {
     public class DatabaseContext : DbContext
     {
@@ -14,10 +9,10 @@ namespace CramerAlexa
         {
         }
 
-        public virtual DbSet<CramerAlexa.Light> Lights { get; set; }
-        public virtual DbSet<CramerAlexa.LightLog> LightLogs { get; set; }
-        public virtual DbSet<CramerAlexa.Room> Rooms { get; set; }
-        public virtual DbSet<CramerAlexa.Scene> Scenes { get; set; }
+        public virtual DbSet<Light> Lights { get; set; }
+        public virtual DbSet<LightLog> LightLogs { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<Scene> Scenes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CramerGui.Hubs;
+using CramerGui.Repositories;
+using CramerGui.Services;
+using CramerGui.Services.Interfaces;
+using DbUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-using Microsoft.EntityFrameworkCore;
-using CramerAlexa.Services;
-using CramerAlexa.Repositories;
-using CramerAlexa;
-using System.Threading;
-using CramerAlexa.Hubs;
-using CramerAlexa.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using DbUp;
+using System;
 using System.Reflection;
-using System.Net;
-using System.Net.Sockets;
+using System.Threading;
 
-namespace CramerAlexa
+namespace CramerGui
 {
     public class HtmlOutputFormatter : StringOutputFormatter
     {
@@ -90,7 +83,6 @@ namespace CramerAlexa
 
             services.AddScoped<ILightRepository, LightRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
-            services.AddScoped<ISensorRepository, SensorRepository>();
             services.AddScoped<ISceneRepository, SceneRepository>();
         }
 

@@ -1,19 +1,15 @@
-﻿using CramerAlexa;
-using CramerAlexa.Hubs;
-using CramerAlexa.Services;
+﻿using CramerGui.Hubs;
+using CramerGui.Repositories;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using System.Net.Mqtt;
 using System.Text;
 using System.Threading.Tasks;
-using CramerAlexa.Repositories;
-using System.Threading;
-using System.Net.Mqtt;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.SignalR;
 
-namespace CramerAlexa.Services
+namespace CramerGui.Services
 {
     public class LightService : ILightService
     {

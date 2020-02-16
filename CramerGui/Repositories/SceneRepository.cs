@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using CramerAlexa;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 
-namespace CramerAlexa.Repositories
+namespace CramerGui.Repositories
 {
     public class SceneRepository : ISceneRepository
     {

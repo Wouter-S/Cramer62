@@ -1,14 +1,9 @@
-﻿
-using System;
+﻿using CramerGui.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CramerAlexa.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
 
-namespace CramerAlexa.Controllers
+namespace CramerGui.Controllers
 {
     public class LightController : Controller
     {
@@ -63,7 +58,7 @@ namespace CramerAlexa.Controllers
         [Route("/api/lights/logs")]
         public ActionResult GetLightLogs()
         {
-            return Json(_lightService.GetLightLogs().OrderByDescending(l=>l.DateTime).ToList());
+            return Json(_lightService.GetLightLogs().OrderByDescending(l => l.DateTime).ToList());
         }
     }
 }

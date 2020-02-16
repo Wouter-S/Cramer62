@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CramerGui.Repositories;
 using System.Collections.Generic;
-using CramerAlexa.Repositories;
 
-namespace CramerAlexa.Services
+
+namespace CramerGui.Services
 {
     public class RoomService : IRoomService
     {

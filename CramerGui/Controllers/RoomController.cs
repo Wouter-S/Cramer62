@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using CramerGui.Services;
 using Microsoft.AspNetCore.Mvc;
 
-using System.Linq;
-using CramerAlexa.Services;
-
-namespace CramerAlexa.Controllers
+namespace CramerGui.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

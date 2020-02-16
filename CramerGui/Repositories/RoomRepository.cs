@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CramerAlexa.Repositories
+namespace CramerGui.Repositories
 {
     public class RoomRepository : IRoomRepository
     {

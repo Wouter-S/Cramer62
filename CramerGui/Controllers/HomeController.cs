@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CramerAlexa.Controllers
+namespace CramerGui.Controllers
 {
     public class HomeController : Controller
     {

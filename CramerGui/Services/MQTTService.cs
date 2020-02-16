@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Mqtt;
 using System.Threading.Tasks;
 
-namespace CramerAlexa.Services
+namespace CramerGui.Services
 {
     internal class MqttCredentials : MqttClientCredentials
     {

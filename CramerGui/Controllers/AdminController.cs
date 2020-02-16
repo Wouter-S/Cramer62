@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Drawing.Imaging;
-using CramerAlexa.Repositories;
-using CramerAlexa.Services;
-using Microsoft.AspNetCore.Mvc;
-using CramerAlexa.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CramerAlexa.Controllers
+namespace CramerGui.Controllers
 {
     public class AdminController : Controller
     {

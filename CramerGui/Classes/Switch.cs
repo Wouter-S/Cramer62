@@ -1,4 +1,4 @@
-namespace CramerAlexa
+namespace CramerGui
 {
     using System;
     using System.Collections.Generic;

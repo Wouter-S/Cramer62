@@ -1,10 +1,7 @@
-﻿using System;
+﻿using CramerGui.Controllers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CramerAlexa.Controllers;
 
-namespace CramerAlexa.Classes
+namespace CramerGui.Classes
 {
     public class GraphRow
     {

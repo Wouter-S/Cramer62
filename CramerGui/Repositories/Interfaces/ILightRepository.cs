@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CramerAlexa.Repositories
+namespace CramerGui.Repositories
 {
     public interface ILightRepository
     {

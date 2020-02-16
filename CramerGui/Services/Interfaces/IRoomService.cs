@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CramerAlexa.Services
+namespace CramerGui.Services
 {
     public interface IRoomService
     {
