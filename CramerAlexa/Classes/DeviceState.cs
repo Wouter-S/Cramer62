@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace CramerAlexa.Hue.Classes
 {
     public class DeviceState {
+        internal string mode;
+
         public bool on {get; set;}
         public int bri { get; set; } 
         public int hue { get; set; }

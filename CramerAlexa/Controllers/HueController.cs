@@ -37,8 +37,19 @@ namespace CramerAlexa.Hue.Controllers
             return hueTemplate;
         }
 
+        [Route("api")]
+        public async Task<IActionResult> PostApi()
+        {
+            string responseString = "[{\"success\":{\"username\":\"lights\"}}]";
+            return Content(responseString, "application/json");
+        }
+
         [Route("api/{userId}")]
-        public async Task<HueApiResponse> Get(string userId)
+        [Route("api/{userId}/config")]
+        [Route("{userId}/config")]
+        [Route("discover")]
+        [Route("api/lights/lights")]
+        public async Task<IActionResult> Get(string userId)
         {
             Dictionary<string, DeviceResponse> deviceResponseList = new Dictionary<string, DeviceResponse>();
 
@@ -47,29 +58,24 @@ namespace CramerAlexa.Hue.Controllers
             foreach (Light light in lights.Where(s => s.FriendlyName != null))
             {
                 DeviceResponse newDR = DeviceResponse.createResponse(light.FriendlyName, light.FriendlyNameSlug, light.Mode == LightMode.on,
-                    light.Percentage.HasValue ? light.Percentage.Value : 255);
-                deviceResponseList.Add(light.FriendlyName, newDR);
+                    light.IsDimmable ? light.Percentage.Value : 254);
+                deviceResponseList.Add(light.FriendlyNameSlug, newDR);
             }
 
-            return new HueApiResponse()
-            {
-                lights = deviceResponseList
-            };
+            return Ok(deviceResponseList);//new HueApiResponse()
         }
 
 
         [HttpPut]
         [Route("api/{userId}/lights/{id}/{state}")]
-        public async Task<IActionResult> SetState()
+        public async Task<IActionResult> SetState(string userId, string id, string state)
         {
-            string id = Request.Path.Value.Split('/')[4];
-            
-            string content = new StreamReader(Request.Body).ReadToEndAsync().Result;
+            string content = await new StreamReader(Request.Body).ReadToEndAsync();
             DeviceState deviceState = Newtonsoft.Json.JsonConvert.DeserializeObject<DeviceState>(content);
-            isOn = deviceState.on;
+            bool isOn = deviceState.on;
             if (deviceState.bri != 0)
             {
-               await _hueService.DimLight(id, (deviceState.bri * 100 / 255), true);
+               await _hueService.DimLight(id, (deviceState.bri * 100 / 254), true);
             }
             else
             {
@@ -80,16 +86,14 @@ namespace CramerAlexa.Hue.Controllers
             return Content(responseString, "application/json");
         }
 
-        private bool isOn = false;
-
         [Route("api/{userId}/lights/{id}")]
         public async Task<DeviceResponse> GetLight(string id)
         {
             Light light = await _hueService.GetLight(id);
 
-            DeviceResponse response = DeviceResponse.createResponse(light.FriendlyName, light.FriendlyNameSlug, 
+            DeviceResponse response = DeviceResponse.createResponse(light.FriendlyName, light.FriendlyNameSlug,
                 light.Mode == LightMode.on,
-                light.Percentage.HasValue ? (light.Percentage.Value * 255 / 100) : 255);
+                light.IsDimmable ? (light.Percentage.Value * 254 / 100) : 254);
             return response;
         }
 
@@ -109,7 +113,7 @@ namespace CramerAlexa.Hue.Controllers
                   "<modelName>Philips hue bridge 2012</modelName>\n" +
                   "<modelNumber>929000226503</modelNumber>\n" +
                   "<modelURL>http://www.nanoweb.com/HueVeraBridge</modelURL>\n" +
-                  "<serialNumber>01189998819991197253</serialNumber>\n" +
+                  "<serialNumber>001788102201</serialNumber>\n" +
                   "<UDN>uuid:{2}</UDN>\n" +
                   "<serviceList>\n" +
                   "<service>\n" +

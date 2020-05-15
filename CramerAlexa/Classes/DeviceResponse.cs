@@ -38,7 +38,6 @@ namespace CramerAlexa.Hue.Classes
 
             DeviceState deviceState = new DeviceState();
             DeviceResponse response = new DeviceResponse();
-            response.state = deviceState;
             deviceState.on = isOn;
             deviceState.reachable = true;
             deviceState.effect = "none";
@@ -54,6 +53,8 @@ namespace CramerAlexa.Hue.Classes
             deviceState.xy = xv;
 
             deviceState.colormode = "ct";
+
+            response.state = deviceState;
             response.name = name;
             response.uniqueid = id;
             response.manufacturername = "Philips";
