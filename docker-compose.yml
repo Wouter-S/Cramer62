@@ -3,7 +3,7 @@ networks:
   static-network:
     ipam:
       config:
-        - subnet: 172.25.0.0/16
+        - subnet: 172.20.0.0/16
 
 services:
   
@@ -16,23 +16,33 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.2
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
     
   Zigbee2Mqtt:
     volumes:
       - /data/zigbee2mqtt_data:/app/data
     container_name: Zigbee2Mqtt
     devices:
-    - "/dev/zigbee2mqtt:/dev/zigbee2mqtt"    
-    image: koenkk/zigbee2mqtt:arm64v8
+    - "/dev/ttyACM0:/dev/zigbee2mqtt"    
+    image: koenkk/zigbee2mqtt:1.6.0-arm64v8
     restart: unless-stopped
     networks:
       static-network:
         ipv4_address: 172.20.0.3
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
 
   InfluxDb:
     volumes:
-      - /data/influxdb_data:/var/lib/influxdb
-    container_name:InfluxDb
+    - /data/influxdb_data:/var/lib/influxdb
+    container_name: InfluxDb
     ports:
     - "8086:8086"
     image: influxdb
@@ -42,11 +52,15 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.4
-
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
   NodeRed:
     volumes:
       - /data/nodered_data:/data
-    container_name:NodeRed
+    container_name: NodeRed
     ports:
     - "1880:1880"
     image: nodered/node-red-docker:rpi   
@@ -56,6 +70,11 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.5
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
   
   CramerGui:
     ports:
@@ -68,12 +87,17 @@ services:
     - Mqtt:IpAddress=172.20.0.2
     - Mqtt:Port=1883
     - Influx:BaseUrl=172.20.0.4:8086
-    - Grafana:BaseUrl=192.168.1.5:3000
+    - Grafana:BaseUrl=192.168.1.4:3000
     image: woutersnl/cramer_gui:latest
     restart: unless-stopped
     networks:
       static-network:
         ipv4_address: 172.20.0.6
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
 
   SmartMeterToMqtt:
     container_name: SmartMeterToMqtt
@@ -81,13 +105,18 @@ services:
     - MqttIp=172.20.0.2
     - ComPort=/dev/smartMeter
     - MqttPort=1883
-    devices:
-    - "/dev/smartMeter:/dev/smartMeter"
+    #devices:
+    #- "/dev/smartMeter:/dev/smartMeter"
     image: woutersnl/smartmeter_to_mqtt:latest
     restart: unless-stopped
     networks:
       static-network:
         ipv4_address: 172.20.0.7
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
 
   CramerAlexa:
     container_name: CramerAlexa
@@ -100,6 +129,11 @@ services:
     image: woutersnl/cramer_alexa:latest
     network_mode: "host"
     restart: unless-stopped
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
   
   CramerCore:
     container_name: CramerCore
@@ -108,27 +142,19 @@ services:
     - ComPort=/dev/lights
     - MqttPort=1883
     - TZ=Europe/Amsterdam
-    devices:
-    - "/dev/lights:/dev/lights"
+    #devices:
+    #- "/dev/lights:/dev/lights"
     image: woutersnl/cramer_core:latest
     restart: unless-stopped
     networks:
       static-network:
         ipv4_address: 172.20.0.8
- 
-  DuckDNS:
-    container_name: DuckDNS
-    environment:
-    - LOG_FILE=false
-    - TOKEN=XXXXXXXXXXXXXXXXXXXXXXXX
-    - SUBDOMAINS=XXXXXXXXXXXXXXXXXXXXXXXX 
-    - TZ=Europe/Amsterdam
-    image: linuxserver/duckdns 
-    restart: unless-stopped
-    networks:
-      static-network:
-        ipv4_address: 172.20.0.9
-        
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
+
   Grafana:
     image: grafana/grafana:latest
     container_name: Grafana
@@ -144,3 +170,8 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.10
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 1
+            max-size: 1m
