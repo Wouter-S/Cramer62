@@ -61,7 +61,7 @@ sudo apt-get install docker-ce
 
 sudo docker run hello-world
 
-sudo docker volume create portainer_data && sudo docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --name portainer -v portainer_data:/data portainer/portainer 
+sudo docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --name portainer -v portainer_data:/data portainer/portainer 
 
 open http://192.168.1.4:9000/
 	enter password
@@ -70,7 +70,8 @@ open http://192.168.1.4:9000/
 Create stack, paste docker-compose.yml
 ```
 
-
+**Configuration**
+Go to http://{ipaddress}:9000, stacks > stack > editor
 
 In the portainer stack (which is docker compose) the following changes need to be configured: <br/>
 - On line 145/146, the arduino device has to be configured, this should be something like "/dev/ttyUSB0:/dev/lights" where "/dev/ttyUSB0" should be the port where the arduino is connected to. (can be found by executing "lsusb" command in ubuntu)<br/>
