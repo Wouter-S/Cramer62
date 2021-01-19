@@ -70,8 +70,8 @@ open http://192.168.1.4:9000/
 Create stack, paste docker-compose.yml
 ```
 
-**Configuration**
-Go to http://{ipaddress}:9000, stacks > stack > editor
+**Configuration** <br/><br/>
+Go to http://{ipaddress}:9000, stacks > stack > editor <br/><br/>
 
 In the portainer stack (which is docker compose) the following changes need to be configured: <br/>
 - On line 145/146, the arduino device has to be configured, this should be something like "/dev/ttyUSB0:/dev/lights" where "/dev/ttyUSB0" should be the port where the arduino is connected to. (can be found by executing "lsusb" command in ubuntu)<br/>
